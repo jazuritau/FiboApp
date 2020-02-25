@@ -1,5 +1,6 @@
 import React from 'react'
 import '../assets/styles/components/Fibo.css'
+import axios from 'axios'
 
 const Fibo = ({ title }) => (
 <section className="Fibo">
@@ -13,8 +14,8 @@ const Fibo = ({ title }) => (
 function fibonacci() {
 
     let pos = document.getElementById("position")
-    let valor = parseInt(pos.value)
-
+    let number = parseInt(pos.value)
+    axios.get(`/api/fibo/${number}`)
 
     .then(function (res) {
         resultado.innerHTML = res.data
