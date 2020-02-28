@@ -1,33 +1,37 @@
-const joi = require('@hapi/joi')
+function get (req, res, next){
 
-function get(req,res){
-    const position = req.params.id
-    if(!joi.number().intefer().valid(position)) 
-        return res.statusCode(400).send('Error, solo se aceptan numeros')
+    const number = req.params.number
+    const valid  = RegExp(/^\d*$/).test(number)
     
-    fibonacci(req.params.id)
-    res.send(arr)
-  
-}
-
-let arr = []
-function fibonacci(n) {
-    if(n === 1) {
-        return 0
-    }
-    if(n === 2) {
-        return 1
-    }
-    if(arr[n]) {
-        return arr[n]
+    if (valid == false) {
+        res.send('Error!... Solo acepto números')
     }
 
-    const result = fibonacci(n-1) + fibonacci(n-2)
-    arr[n] = result
-
-    return result        
+    try {            
+        let result = fibonacci(parseInt(req.params.number))
+        res.status(200).send(`Para el número ${number} la secuencia es : ${result} `)
+        
+    } catch (error) {
+        next(error)
+    }
+}
+   
+function fibonacci(value){
+    let n = 0
+    let arreglo = []
+        for (n; n<value; n++){
+            if(n==0){
+                arreglo.push(0)
+            }
+            else if(n==1){
+                arreglo.push(1)
+            }
+            else{
+                arreglo.push(arreglo[n-1]+arreglo[n-2])
+            }
+        }
+    return arreglo
 }
 
-module.exports = {
-    get
-}
+
+module.exports = get

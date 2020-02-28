@@ -1,7 +1,7 @@
-const { Router } = require('express')
-const router = Router()
-const fibo = require('./fibo')
+const express = require('express')
+const router = express.Router()
+const get = require('./fibo')
 
-router.get('/fibo/:number', fibo.get)
+router.get('/fibo/:number', get)
 
-module.exports = Router
+module.exports = router
