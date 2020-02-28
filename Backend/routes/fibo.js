@@ -7,6 +7,7 @@ function get (req, res, next){
         res.send('Error!... Solo acepto números')
     }
 
+
     try {            
         let result = fibonacci(parseInt(req.params.number))
         res.status(200).send(`Para el número ${number} la secuencia es : ${result} `)
@@ -34,4 +35,6 @@ function fibonacci(value){
 }
 
 
-module.exports = get
+module.exports = {
+    get
+}
